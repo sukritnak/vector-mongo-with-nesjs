@@ -3,6 +3,7 @@ import { ModelDefinition } from '@nestjs/mongoose';
 
 import { LLMProvideName } from '../../../common/enums/llmProvideType';
 import { MongoProvideName } from '../../../common/enums/mongoProvideType';
+import { OpenAiRepository } from './core/openAi.repository';
 import { OpenAiEmbeddingRepository } from './core/openAiEmbedding.repository';
 import { InformationRepositoryMongo } from './information/information.repository.mongo';
 import { InformationSchema, InformationSchemaMongo } from './information/schemas/information.schema';
@@ -12,10 +13,10 @@ export const llmProviderRepository: Provider[] = [
         provide: LLMProvideName.OpenAiEmbeddingRepository,
         useClass: OpenAiEmbeddingRepository,
     },
-    // {
-    //     provide: LLMProvideName.OpenAILlmRepositoryGateway,
-    //     useClass: OpenAILlmRepositoryGateway,
-    // },
+    {
+        provide: LLMProvideName.OpenAiRepository,
+        useClass: OpenAiRepository,
+    },
 ];
 
 export const mongoProviderRepository: Provider[] = [
@@ -26,10 +27,7 @@ export const mongoProviderRepository: Provider[] = [
 ];
 
 export const mongoProvideName = [MongoProvideName.InformationRepository];
-export const llmProvideName = [
-    LLMProvideName.OpenAiEmbeddingRepository,
-    // LLMProvideName.OpenAILlmRepositoryGateway
-];
+export const llmProvideName = [LLMProvideName.OpenAiEmbeddingRepository, LLMProvideName.OpenAiRepository];
 
 export const modelDefinitions: ModelDefinition[] = [
     {

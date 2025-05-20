@@ -12,7 +12,7 @@ export class CreateInformationFromTextUsecase {
          * Instruction to implement
          * 1. split text
          * 2. loop to create information (use InformationFactory)
-         * - please what informationRepository do ?
+         * - please read what informationRepository do ?
          */
     }
 }
