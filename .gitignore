@@ -4,6 +4,8 @@ node_modules
 .env*
 !.env.template
 
+/src/common/files/*
+
 # Logs
 logs
 *.log

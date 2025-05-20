@@ -30,6 +30,7 @@
         "@nestjs/mongoose": "^11.0.3",
         "@nestjs/platform-express": "^10.0.0",
         "builder-pattern": "^2.2.0",
+        "class-validator": "^0.14.2",
         "langchain": "^0.3.24",
         "mongoose": "^8.14.0",
         "pdf-parse": "^1.1.1",
