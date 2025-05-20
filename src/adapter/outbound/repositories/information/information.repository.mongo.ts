@@ -30,7 +30,7 @@ export class InformationRepositoryMongo implements InformationRepository {
     public async create(information: Information): Promise<void> {
         const contentEmbedding = await this.embeddingRepository.embed(
             [information.content],
-            3072,
+            1536,
             LLMEmbeddingModel.textEmbedding3Small,
         );
 
@@ -43,7 +43,7 @@ export class InformationRepositoryMongo implements InformationRepository {
     public async similaritySearchByContent(content: string): Promise<Information[]> {
         const contentEmbedding = await this.embeddingRepository.embedQuery(
             content,
-            3072,
+            1536,
             LLMEmbeddingModel.textEmbedding3Small,
         );
 

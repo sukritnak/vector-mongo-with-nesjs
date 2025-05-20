@@ -1,22 +1,47 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { promises as fs } from 'fs';
 
+import { MongoProvideName as Provide } from '../../../common/enums/mongoProvideType';
+import { InformationFactory } from '../../factories/information.factory';
+import { InformationRepository } from '../../ports/information/information.repository';
+import { DynamicFileLoaderUsecase } from '../loaders/dynamicFileLoader.usecase';
+import { DocumentSplitterUsecase } from '../splitters/documentSplitter.usecase';
 @Injectable()
 export class CreateInformationFromPathFileUsecase {
-    // constructor(
-    //     Loader ?
-    //     Splitter ?
-    //     InformationRepository
-    // ) {}
-    async handler(pathFile: string): Promise<void> {
-        throw new Error(`Not implemented: ${pathFile}`);
+    constructor(
+        private readonly dynamicFileLoaderUsecase: DynamicFileLoaderUsecase,
+        private readonly documentSplitterUsecase: DocumentSplitterUsecase,
+        @Inject(Provide.InformationRepository)
+        private readonly informationRepository: InformationRepository,
+    ) {}
+    public async handler(pathFile: string): Promise<void> {
+        await this.checkFileValid(pathFile);
 
-        /**
-         * Instruction to implement
-         * 0. check pathFile is exist (and is file)
-         * 1. load file
-         * 2. split file
-         * 3. loop to create information (use InformationFactory must have metadata)
-         * 4. save information
-         */
+        const documents = await this.dynamicFileLoaderUsecase.handler(pathFile);
+        const splitDocuments = await this.documentSplitterUsecase.handler(documents);
+        await Promise.all(
+            splitDocuments.map((document) => {
+                const information = InformationFactory.create({
+                    content: document.text,
+                    metadata: document.metadata,
+                });
+                return this.informationRepository.create(information);
+            }),
+        );
+    }
+
+    private async checkFileValid(pathFile: string) {
+        try {
+            const stats = await fs.stat(pathFile);
+            if (!stats.isFile()) {
+                throw new NotFoundException(`Path is not a file: ${pathFile}`);
+            }
+            return true;
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                throw new NotFoundException(`File does not exist: ${pathFile}`);
+            }
+            throw error;
+        }
     }
 }
