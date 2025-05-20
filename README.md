@@ -45,6 +45,7 @@ Before running this project, make sure you have:
   - Text files (.txt)
   - PDF documents (.pdf)
   - JSON data (.json)
+  - CSV (.csv) [optional]
 3. Building chat applications with and without Retrieval Augmented Generation (RAG)
 
 ---
@@ -125,6 +126,9 @@ src
   └── domain
       └── model
 ```
+
+###
+More loader in lang chain read [All document loaders](https://js.langchain.com/docs/integrations/document_loaders/file_loaders/)
 
 ### API Endpoints For this work shop
 _We will implement the API endpoints in app.controller.ts or you can add more controller ex: information.controller.ts_

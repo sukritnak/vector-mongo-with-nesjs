@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 import { InformationEntity } from '../information.entity';
 
@@ -14,7 +14,7 @@ export class InformationSchemaMongo extends Document implements InformationEntit
     @Prop({ required: true })
     content: string;
 
-    @Prop({ type: Map, of: String, required: false })
+    @Prop({ type: Map, of: mongoose.Schema.Types.Mixed, required: false })
     metadata?: Record<string, string>;
 
     @Prop({ required: true })

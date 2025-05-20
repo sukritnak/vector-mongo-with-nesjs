@@ -18,7 +18,6 @@ export class DynamicFileLoaderUsecase {
 
         switch (ext) {
             case 'txt':
-            case 'md':
                 return this.normalLoaderUsecase.handler(filePath);
             case 'pdf':
                 return this.pdfLoaderUsecase.handler(filePath);
