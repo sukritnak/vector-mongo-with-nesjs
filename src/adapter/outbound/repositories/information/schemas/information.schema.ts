@@ -14,7 +14,7 @@ export class InformationSchemaMongo extends Document implements InformationEntit
     @Prop({ required: true })
     content: string;
 
-    @Prop({ required: false })
+    @Prop({ type: Map, of: String, required: false })
     metadata?: Record<string, string>;
 
     @Prop({ required: true })
