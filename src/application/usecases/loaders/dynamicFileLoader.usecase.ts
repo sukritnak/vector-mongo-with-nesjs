@@ -6,7 +6,7 @@ import { PdfLoaderUsecase } from './pdfLoader.usecase';
 import { TxtLoaderUsecase } from './txtLoader.usecase';
 
 @Injectable()
-export class DocumentLoaderService {
+export class DynamicFileLoaderUsecase {
     constructor(
         private readonly normalLoaderUsecase: TxtLoaderUsecase,
         private readonly pdfLoaderUsecase: PdfLoaderUsecase,
