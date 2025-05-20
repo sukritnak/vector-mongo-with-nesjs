@@ -4,5 +4,13 @@
         "langchain",
         "Usecase",
         "Usecases"
-    ]
+    ],
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "somethingShare": ""
+        },
+        "local": {
+            "host": "http://localhost:3000"
+        }
+    },
 }

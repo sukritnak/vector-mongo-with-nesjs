@@ -164,3 +164,6 @@ content-type: application/json
     "message": string
 }
 ```
+
+### Some Trap in project
+- Note: `OpenAI's new text-embedding-3-small model provides embeddings with dimensions of 512 or 1536, while the text-embedding-3-large model offers dimensions of 256, 1024, or 3072.`
